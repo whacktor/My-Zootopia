@@ -1,37 +1,47 @@
 import json
 
+
 def load_data(file_path):
     """Lädt die JSON-Datei mit Tierdaten."""
     with open(file_path, "r", encoding="utf-8") as file:
         return json.load(file)
 
-# JSON laden
-data = load_data("animals_data.json")
 
-# HTML-String erzeugen
-output = ''  # leerer String
+def serialize_animal(animal_obj):
 
-for animal_data in data:
-    name = animal_data.get('name', 'Unknown')
-    characteristics = animal_data.get('characteristics', {})
-    diet = characteristics.get('diet')
-    animal_type = characteristics.get('type')
-    locations = animal_data.get('locations', [])
+    name = animal_obj.get("name", "Unknown")
+    characteristics = animal_obj.get("characteristics", {})
+    diet = characteristics.get("diet")
+    animal_type = characteristics.get("type")
+    locations = animal_obj.get("locations", [])
     location = locations[0] if locations else None
 
-    # HTML für ein Tier
-    card_html = f'<li class="cards__item">\n'
-    card_html += f'  <div class="card__title">{name}</div>\n'
-    card_html += f'  <p class="card__text">\n'
+    html = '<li class="cards__item">\n'
+    html += f'  <div class="card__title">{name}</div>\n'
+    html += '  <p class="card__text">\n'
     if diet:
-        card_html += f'      <strong>Diet:</strong> {diet}<br/>\n'
+        html += f'      <strong>Diet:</strong> {diet}<br/>\n'
     if location:
-        card_html += f'      <strong>Location:</strong> {location}<br/>\n'
+        html += f'      <strong>Location:</strong> {location}<br/>\n'
     if animal_type:
-        card_html += f'      <strong>Type:</strong> {animal_type}<br/>\n'
-    card_html += '  </p>\n</li>\n\n'
+        html += f'      <strong>Type:</strong> {animal_type}<br/>\n'
+    html += '  </p>\n</li>\n\n'
 
-    output += card_html
+    return html
 
-# HTML-String ausgeben
-print(output)
+
+def generate_html(data):
+    output = ""
+    for animal_obj in data:
+        output += serialize_animal(animal_obj)
+    return output
+
+
+def main():
+    data = load_data("animals_data.json")
+    html_output = generate_html(data)
+    print(html_output)
+
+
+if __name__ == "__main__":
+    main()
