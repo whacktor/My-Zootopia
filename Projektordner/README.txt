@@ -1,4 +1,4 @@
-# Animals Web Generator 🐾
+Animals Web Generator
 
 This project generates a simple HTML website with information about animals.
 The animal data is fetched dynamically from the API Ninjas Animals API based on user input.
@@ -11,7 +11,7 @@ The project demonstrates:
 
 ---
 
-## Features
+Features
 
 - Fetches animal data from an external API
 - User selects the animal name at runtime
@@ -19,6 +19,5 @@ The project demonstrates:
 - Displays a friendly message if the animal does not exist
 - Secure API key handling using a `.env` file
 
----
 
-## Project Structure
+
